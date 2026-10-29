@@ -1,0 +1,44 @@
+//
+//  TasksViewModel.swift
+//  TasksApp
+//
+//  Created by sarani dinethma on 2026-10-21.
+//
+
+import SwiftData
+import Observation
+
+@Observable
+final class TasksViewModel {
+    private let context: ModelContext
+    
+    init(context: ModelContext) {
+        self.context = context
+    }
+    
+    func addTask(title: String, priority: Priority, category: Category?) {
+        let task = TaskItem(title: title, priority: priority, category: category)
+        context.insert(task)
+    }
+    
+    func addCategory(name: String) {
+        let category = Category(name: name)
+        context.insert(category)
+    }
+    
+    func delete(_ task: TaskItem) {
+        context.delete(task)
+    }
+    
+    func delete(_ category: Category) {
+        context.delete(category)
+    }
+    
+    func toggleComplete(_ task: TaskItem) {
+        task.isComplete.toggle()
+    }
+}
+
+
+
+
